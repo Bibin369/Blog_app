@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-$s##^-z^bql4=38pofnz)ai+9e7gn#!3x-ot21y4ry1oss2wua
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+CORS_ALLOW_ALL_ORIGINS=True
+CORS_ALLOW_CREDENTIALS=True
 
 
 # Application definition
@@ -37,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'login',
+    'rest_framework',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -47,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'blogapplication.urls'
@@ -75,9 +81,15 @@ WSGI_APPLICATION = 'blogapplication.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'djongo',
+        "CLIENT": {
+"name": "blogdb",
+"host": "mongodb+srv://bibint6:15051967dob@bibin.7xyvxmv.mongodb.net/?retryWrites=true&w=majority",
+"username": "bibint6",
+"password": "15051967dob",
+"authMechanism": "SCRAM-SHA-1",
+},
+}
 }
 
 
