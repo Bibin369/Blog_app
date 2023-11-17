@@ -19,3 +19,17 @@ def Post(request):
         else:
              return HttpResponse(json.dumps({"status":"Registration failed"}))
 
+@csrf_exempt
+def ViewAll(request):
+    if request.method=="POST":
+        postList = postmodel.objects.all()
+        serialize_data=postSerializer(postList,many=True)
+        return HttpResponse(json.dumps(serialize_data.data))
+    
+@csrf_exempt    
+def Search(request):
+    if request.method=="POST":
+        received_data=json.loads(request.body)
+        getuserid=received_data["userid"]
+        data=list(postmodel.objects.filter(Q(userid__icontains=getuserid)).values())
+        return HttpResponse(json.dumps(data))
